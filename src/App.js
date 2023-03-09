@@ -1,23 +1,76 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Home from './pages/home page';
+import Auth from './pages/auth';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { getUserFromSession } from './utilities/user-functions';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from './context';
+import axios from 'axios';
 
 function App() {
+  const [callWasMade, setCallWasMade] = useState(false);
+
+  let { user, setUser, setTask, setCompletedTask } = useContext(AppContext);
+
+  // this will only run when we first open our app, or refresh the page
+
+  // get user
+  useEffect(() => {
+    const getSession = async () => {
+
+      let userResponse = await getUserFromSession();
+      setUser(userResponse)
+      setCallWasMade(true)
+    }
+    getSession();
+
+  }, []);
+
+
+  // get items and set in context
+  useEffect(() => {
+    const getTask = async () => {
+      let response = await axios('/get_task')
+      let task = response.data;
+      setTask(task)
+    }
+    getTask()
+  }, [])
+
+  useEffect(() => {
+    const completedTask = async () => {
+      let response = await axios('/get_completed_task')
+      let completedTask = response.data;
+      setCompletedTask(completedTask)
+    }
+    completedTask()
+  }, [])
+
+
+  // get cart
+
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* {callWasMade}
+
+      } */}
+      <>
+        {user ?
+          <div className="page-wrapper">
+            <Routes>
+              <Route path="/home" element={<Home />} />
+
+              <Route path="/*" element={<Navigate to="/home" />} />
+            </Routes>
+          </div>
+          :
+          <Auth />
+        }
+      </>
     </div>
   );
 }

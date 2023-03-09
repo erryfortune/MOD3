@@ -1,0 +1,45 @@
+#task {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* padding: 30px; */
+    margin: 20px 0;
+    gap: 30px;
+
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.task-title {
+    border: 0;
+    outline: none;
+    color: black;
+}
+
+#completed,
+#active {
+    border: 1px solid black;
+    min-width: 350px;
+    height: max-content;
+
+
+}
+
+.task-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: cente;
+    gap: 5px;
+}
