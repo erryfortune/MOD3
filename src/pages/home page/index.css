@@ -5,7 +5,7 @@
     /* padding: 30px; */
     margin: 20px 0;
     gap: 30px;
-    color: brown;
+    color: rgb(146, 6, 6);
 
 
 }
@@ -15,6 +15,7 @@ form {
     justify-content: center;
     align-items: center;
     gap: 15px;
+    color: bisque;
 }
 
 .task-title {
