@@ -33,7 +33,7 @@ const Home = () => {
 
     }
     const handleChange = (e) => {
-        sete.target.value
+        // e.target.value
     }
 
     const edit = (e) => {
@@ -61,23 +61,52 @@ const Home = () => {
         })
 
     }
+    const deleteTask = async (e) => {
+        let response = await axios(`/delete_task/${e.target.id}`, {
+            method: "DELETE"
 
-    let taskList = [...task]
+        })
+        let responseData = await axios('/get_task')
+        let task = responseData.data;
+        setTask(task)
+
+        console.log()
+
+    }
+    // useEffect(() => {
+    //     const getTask = async () => {
+    //         let response = await axios('/get_task')
+    //         let task = response.data;
+    //         setTask(task)
+
+    //     }
+    //     getTask()
+
+    // }, [task])
+
+    let taskJSX = []
+    if (task !== undefined) {
+        let taskList = [...task]
+        taskJSX = taskList.map((task, idx) => {
+            return (
+                <div key={idx} className='task-container'>
+                    <input type='text' className='task-title' value={task.title} disabled onChange={(e) => handleChange(e)} />
+                    <div className='button-container'>
+                        <button type='button' className={idx} onClick={(e) => edit(e)}>Edit</button>
+                        <button type='button' id={task._id} onClick={(e) => deleteTask(e)}>Delete</button>
+                        <input type='checkbox' className={idx} />
+
+                    </div>
+                </div >
+            )
+        })
+    }
+
     let completedTaskList = [...completedTask]
 
-    let taskJSX = taskList.map((task, idx) => {
-        return (
-            <div key={idx} className='task-container'>
-                <input type='text' className='task-title' value={task.title} disabled onChange={(e) => handleChange(e)} />
-                <div className='button-container'>
-                    <button type='button' className={idx} onClick={(e) => edit(e)}>Edit</button>
-                    <button type='button' className={idx}>Delete</button>
-                    <input type='checkbox' className={idx} />
 
-                </div>
-            </div >
-        )
-    })
+
+
 
     let completedJSK = completedTaskList.map((task, idx) => {
         return (

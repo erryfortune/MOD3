@@ -126,7 +126,9 @@ app.get('/get_completed_task', async (req, res) => {
 
 
 
-app.delete('/delete_task', async (req, res) => {
+app.delete('/delete_task/:product_id', async (req, res) => {
+    let response = await Task.findByIdAndDelete(req.params.product_id)
+
     res.send("delete task")
 })
 
