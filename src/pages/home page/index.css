@@ -47,3 +47,8 @@ form {
     align-items: cente;
     gap: 5px;
 }
+
+
+body {
+    background-color: rgb(240, 222, 200);
+}
