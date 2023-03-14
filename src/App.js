@@ -20,6 +20,7 @@ function App() {
     const getSession = async () => {
 
       let userResponse = await getUserFromSession();
+      console.log(userResponse)
       setUser(userResponse)
       setCallWasMade(true)
     }
@@ -30,22 +31,26 @@ function App() {
 
   // get items and set in context
   useEffect(() => {
-    const getTask = async () => {
-      let response = await axios('/get_task')
-      let task = response.data;
-      setTask(task)
-    }
-    getTask()
-  }, [])
+    console.log(user)
+    const getTask = async (user) => {
+      if (user) {
+        let response = await axios('/get_task/' + user._id)
+        let task = response.data;
+        setTask(task)
+      }
 
-  useEffect(() => {
-    const completedTask = async () => {
-      let response = await axios('/get_completed_task')
-      let completedTask = response.data;
-      setCompletedTask(completedTask)
     }
-    completedTask()
-  }, [])
+    getTask(user)
+  }, [user])
+
+  // useEffect(() => {
+  //   const completedTask = async () => {
+  //     let response = await axios('/get_completed_task')
+  //     let completedTask = response.data;
+  //     setCompletedTask(completedTask)
+  //   }
+  //   completedTask()
+  // }, [])
 
 
   // get cart

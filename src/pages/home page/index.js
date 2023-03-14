@@ -26,10 +26,9 @@ const Home = () => {
             data: { userInput, userId: user._id }
 
         })
-        let taskData = await getTask()
-        let completedTaskData = await getCompletedTask()
+        let taskData = await getTask(user)
         setTask(taskData)
-        setCompletedTask(completedTaskData)
+
 
     }
     const handleChange = (e) => {
@@ -66,11 +65,11 @@ const Home = () => {
             method: "DELETE"
 
         })
-        let responseData = await axios('/get_task')
-        let task = responseData.data;
+        let responseData = await getTask(user)
+        let task = responseData;
         setTask(task)
 
-        console.log()
+
 
     }
     // useEffect(() => {
@@ -92,9 +91,9 @@ const Home = () => {
                 <div key={idx} className='task-container'>
                     <input type='text' className='task-title' value={task.title} disabled onChange={(e) => handleChange(e)} />
                     <div className='button-container'>
-                        <button type='button' className={idx} onClick={(e) => edit(e)}>Edit</button>
+                        {/* <button type='button' className={idx} onClick={(e) => edit(e)}>Edit</button> */}
                         <button type='button' id={task._id} onClick={(e) => deleteTask(e)}>Delete</button>
-                        <input type='checkbox' className={idx} />
+
 
                     </div>
                 </div >
@@ -102,23 +101,23 @@ const Home = () => {
         })
     }
 
-    let completedTaskList = [...completedTask]
+    // let completedTaskList = [...completedTask]
 
 
 
 
 
-    let completedJSK = completedTaskList.map((task, idx) => {
-        return (
-            <div key={idx} className='task-container'>
-                <p>{task.title}</p>
-                <div className='button-container'>
-                    <button type='button'>Delete</button>
+    // let completedJSK = completedTaskList.map((task, idx) => {
+    //     return (
+    //         <div key={idx} className='task-container'>
+    //             <p>{task.title}</p>
+    //             <div className='button-container'>
+    //                 <button type='button'>Delete</button>
 
-                </div>
-            </div >
-        )
-    })
+    //             </div>
+    //         </div >
+    //     )
+    // })
 
 
 
@@ -138,10 +137,10 @@ const Home = () => {
                     {taskJSX}
                 </div>
 
-                <div id="completed">
+                {/* <div id="completed">
                     <h3>Completed Task</h3>
 
-                </div>
+                </div> */}
 
             </div>
         </div>

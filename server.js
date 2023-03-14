@@ -86,10 +86,10 @@ app.post('/users/signup', async (req, res) => {
 
 
 app.put('/users/login', async (req, res, next) => {
-    console.log(req.body);
+    // console.log(req.body);
     // passport authentication
     passport.authenticate("local", (err, user, message) => {
-        console.log(message);
+        // console.log(message);
         if (err) throw err;
         if (!user) {
             res.json({
@@ -110,13 +110,15 @@ app.put('/users/login', async (req, res, next) => {
 })
 
 app.post('/add_task', async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     let response = await Task.create({ title: req.body.userInput, user: req.body.userId })
     res.send("add task")
 })
 
-app.get('/get_task', async (req, res) => {
-    let response = await Task.find({})
+app.get('/get_task/:userId', async (req, res) => {
+    console.log(req.params.userId)
+    let response = await Task.find({ user: req.params.userId })
+    console.log(response)
     res.send(response)
 })
 app.get('/get_completed_task', async (req, res) => {

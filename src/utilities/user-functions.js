@@ -9,6 +9,7 @@ export const getUserFromSession = async () => {
     // WE HAVE THE LOGGED IN USER! :)
     if (response.data.session.passport) {
         let user = response.data.session.passport.user;
+        console.log(user)
         return user;
     } else {
         return false
@@ -38,8 +39,8 @@ export const logIn = async (formData) => {
     return serverResponse;
 }
 
-export const getTask = async () => {
-    let response = await axios('/get_task')
+export const getTask = async (user) => {
+    let response = await axios('/get_task/' + user._id)
     let task = response.data;
     return task
 }

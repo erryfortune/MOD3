@@ -13,7 +13,7 @@ module.exports = async function (passport) {
             console.log("in strategy");
             // await user here
             const user = await User.findOne({ email: email })
-            console.log("got user", user);
+            // console.log("got user", user);
             if (!user) {
                 return done(null, false, { message: "Email or password incorrect" });
             }
